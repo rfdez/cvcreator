@@ -2,19 +2,166 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Communication extends Model
+use Illuminate\Http\UploadedFile;
+
+class Communication
 {
-    use HasFactory;
+    private $email;
+    private $name;
+    private $telephone;
+    private $file;
+    private $fileName;
+    private $fileExtension;
+    private $mimeType;
+    private $subject;
+    private $details;
 
-    public $email;
-    public $name;
-    public $telephone;
-    public $file;
-    public $fileName;
-    public $fileExtension;
-    public $subject;
-    public $details;
+    public function __construct()
+    {
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone(): string
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject(): string
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetails(): string
+    {
+        return $this->details;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName(): string
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileExtension(): string
+    {
+        return $this->fileExtension;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMimeType(): string
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile(): UploadedFile
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone(string $telephone): void
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @param string $subject
+     */
+    public function setSubject(string $subject): void
+    {
+        $this->subject = $subject;
+    }
+
+    /**
+     * @param string $details
+     */
+    public function setDetails(string $details): void
+    {
+        $this->details = $details;
+    }
+
+    /**
+     * @param string $fileName
+     */
+    public function setFileName(string $fileName): void
+    {
+        $this->fileName = $fileName;
+    }
+
+    /**
+     * @param string $fileExtension
+     */
+    public function setFileExtension(string $fileExtension): void
+    {
+        $this->fileExtension = $fileExtension;
+    }
+
+    /**
+     * @param string $mimeType
+     */
+    public function setMimeType(string $mimeType): void
+    {
+        $this->mimeType = $mimeType;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file): void
+    {
+        $this->file = $file;
+    }
 }

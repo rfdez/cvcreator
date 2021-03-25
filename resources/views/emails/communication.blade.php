@@ -1,9 +1,11 @@
 @component('mail::message')
 # Introduction
 
-Teléfono: {{ $telephone }}. <br>
+@if($communication->getTelephone() != null)
+Teléfono: {{ $communication->getTelephone() }}. <br>
+@endif
 
-{{ $details }}
+{{ $communication->getDetails() }}
 
 @component('mail::button', ['url' => ''])
 Button Text
@@ -12,3 +14,4 @@ Button Text
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
+

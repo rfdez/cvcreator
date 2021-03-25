@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use App\Models\Communication;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -17,7 +18,7 @@ class EmailCommunication extends Mailable
      *
      * @var Communication
      */
-    private $_communication;
+    private $communication;
 
     /**
      * Create a new message instance.
@@ -26,25 +27,24 @@ class EmailCommunication extends Mailable
      */
     public function __construct(Communication $communication)
     {
-        $this->_communication = $communication;
+        $this->communication = $communication;
     }
 
     /**
      * Build the message.
      *
      * @return $this
+     * @throws FileNotFoundException
      */
-    public function build()
+    public function build(): EmailCommunication
     {
         return $this
-            ->from($this->_communication->email, $this->_communication->name)
-            ->subject($this->_communication->subject)
-            ->attachData($this->_communication->file, $this->_communication->fileName, [
-                'mime' => $this->_communication->fileExtension,
+            ->subject($this->communication->getSubject())
+            ->attachData($this->communication->getFile()->get(), $this->communication->getFileName(), [
+                'mime' => $this->communication->getMimeType(),
             ])
             ->markdown('emails.communication', [
-                'telephone' => $this->_communication->telephone,
-                'details' => $this->_communication->details
+                'communication' => $this->communication
             ]);
     }
 }
