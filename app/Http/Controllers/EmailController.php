@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SendMailRequest;
 use App\Mail\EmailCommunication;
+use App\Mail\EmailConfirmation;
 use App\Models\Communication;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
 {
-    public function sendMail(SendMailRequest $request)
+    public function sendMail(SendMailRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -29,10 +32,14 @@ class EmailController extends Controller
             $communication->setFileName($file->getClientOriginalName());
             $communication->setFileExtension($file->getExtension());
             $communication->setMimeType($file->getMimeType());
-
-            Mail::to($communication->getEmail())->send(new EmailCommunication($communication));
-            return redirect()->back()->with('status', 'Bien! La solicitud se ha procesado correctamente. Revisa tu email para más información.');
         }
-        return back()->with('error', 'Ops! :( Ha ocurrido un error durante el proceso de la solicitud. Inténtalo más tarde o ponte en contacto conmigo en raulparri71@gmail.com.');
+
+        try {
+            Mail::to(config('mail.from.address'))->send(new EmailCommunication($communication));
+            Mail::to($communication->getEmail())->send(new EmailConfirmation());
+            return redirect()->back()->with('status', 'Bien! La solicitud se ha procesado correctamente. Revisa tu email para más información.');
+        } catch (Exception $ex) {
+            return back()->with('error', 'Ops! :( Ha ocurrido un error durante el proceso de la solicitud. Inténtalo más tarde o ponte en contacto conmigo en raulparri71@gmail.com.');
+        }
     }
 }

@@ -22,7 +22,7 @@ class Communication
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEmail(): string
     {
@@ -30,7 +30,7 @@ class Communication
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getName(): string
     {
@@ -38,9 +38,9 @@ class Communication
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTelephone(): string
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
@@ -62,33 +62,33 @@ class Communication
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFileName(): string
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFileExtension(): string
+    public function getFileExtension(): ?string
     {
         return $this->fileExtension;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMimeType(): string
+    public function getMimeType(): ?string
     {
         return $this->mimeType;
     }
 
     /**
-     * @return UploadedFile
+     * @return UploadedFile|null
      */
-    public function getFile(): UploadedFile
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }

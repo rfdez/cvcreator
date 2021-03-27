@@ -1,17 +1,22 @@
 @component('mail::message')
-# Introduction
+# Otro cliente :)
+
+Nombre: {{ $communication->getName() }}
 
 @if($communication->getTelephone() != null)
-Teléfono: {{ $communication->getTelephone() }}. <br>
+Teléfono: {{ $communication->getTelephone() }}.
 @endif
+
+Contacto: {{ $communication->getEmail() }}
+
+Quiere: {{ $communication->getSubject() }}
 
 {{ $communication->getDetails() }}
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+{{--@component('mail::button', ['url' => ''])--}}
+{{--    Button Text--}}
+{{--@endcomponent--}}
 
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
-
